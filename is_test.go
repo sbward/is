@@ -199,7 +199,7 @@ func testFailures(t *testing.T, colorful bool) {
 		is := New(tt)
 		var buf bytes.Buffer
 		is.out = &buf
-		is.colorful = colorful
+		is.Colorful = colorful
 		test.F(is)
 		if len(test.Fail) == 0 && tt.failed {
 			t.Errorf("shouldn't fail: %s", test.N)
@@ -229,7 +229,7 @@ func TestRelaxed(t *testing.T) {
 	is := NewRelaxed(tt)
 	var buf bytes.Buffer
 	is.out = &buf
-	is.colorful = false
+	is.Colorful = false
 	is.NoErr(errors.New("oops"))
 	is.True(1 == 2)
 	actual := buf.String()

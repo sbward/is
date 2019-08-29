@@ -68,7 +68,7 @@ type I struct {
 	t        T
 	fail     func()
 	out      io.Writer
-	colorful bool
+	Colorful bool
 }
 
 var noColorFlag bool
@@ -192,7 +192,7 @@ func (is *I) valWithType(v interface{}) string {
 	if isNil(v) {
 		return "<nil>"
 	}
-	if is.colorful {
+	if is.Colorful {
 		return fmt.Sprintf("%[1]s%[3]T(%[2]s%[3]v%[1]s)%[2]s", colorType, colorNormal, v)
 	}
 	return fmt.Sprintf("%[1]T(%[1]v)", v)
@@ -346,11 +346,11 @@ func (is *I) decorate(s string) string {
 	buf := new(bytes.Buffer)
 	// Every line is indented at least one tab.
 	buf.WriteByte('\t')
-	if is.colorful {
+	if is.Colorful {
 		buf.WriteString(colorFile)
 	}
 	fmt.Fprintf(buf, "%s:%d: ", file, lineNumber)
-	if is.colorful {
+	if is.Colorful {
 		buf.WriteString(colorNormal)
 	}
 
@@ -374,13 +374,13 @@ func (is *I) decorate(s string) string {
 	}
 	comment, ok := loadComment(path, lineNumber)
 	if ok {
-		if is.colorful {
+		if is.Colorful {
 			buf.WriteString(colorComment)
 		}
 		buf.WriteString(" // ")
 		comment = escapeFormatString(comment)
 		buf.WriteString(comment)
-		if is.colorful {
+		if is.Colorful {
 			buf.WriteString(colorNormal)
 		}
 	}
